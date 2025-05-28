@@ -2,6 +2,10 @@
 
 node_modules/
 
+# dist folder
+
+dist/
+
 # Logs
 
 logs
