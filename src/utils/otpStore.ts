@@ -10,6 +10,8 @@ export function saveOTP(identifier: string, otp: string, ttlMinutes = 5) {
 export function verifyOTP(identifier: string, inputOtp: string): boolean {
   const record = otpStore[identifier];
   if (!record || Date.now() > record.expiresAt) return false;
+  console.log("record.otp", record.otp);
+  console.log("inputOtp", inputOtp);
   return record.otp === inputOtp;
 }
 
