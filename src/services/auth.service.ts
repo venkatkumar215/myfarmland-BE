@@ -4,7 +4,7 @@ import { saveOTP } from "../utils/otpStore";
 
 export const sendOtp = (mobileNumber: string): sentOtpType => {
   try {
-    const otp = generateOtp(); // Generate 6-digit OTP
+    const otp = false; // Generate 6-digit OTP
     if (!otp) {
       return {
         success: false,

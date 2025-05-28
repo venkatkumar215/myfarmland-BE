@@ -19,7 +19,7 @@ export const requestOtp = (req: Request, res: Response, next: NextFunction) => {
     // Check the result and send response accordingly
     if (!result.success) {
       // You can choose to use 400, 422, or 500 depending on the `message`
-      return next(ERRORS.SERVER_ERROR);
+      return next(result);
     }
 
     // On success
