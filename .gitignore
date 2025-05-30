@@ -2,8 +2,6 @@
 
 node_modules/
 
-# serviceaccount
-config/firebase/serviceAccountKey.json
 
 
 # dist folder
