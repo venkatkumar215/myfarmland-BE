@@ -1,8 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { sendOtp } from "../../services/auth.service";
 import { ERRORS } from "../../config/constants/error";
+import { OTPRequestBody, OTPResponse } from "../../models/auth/otp.models";
 
-export const requestOtp = (req: Request, res: Response, next: NextFunction) => {
+export const requestOtp = (
+  req: Request<{}, {}, OTPRequestBody>,
+  res: Response<OTPResponse>,
+  next: NextFunction
+) => {
   try {
     // Validate request body
     if (!req.body || !req.body.mobile) {
