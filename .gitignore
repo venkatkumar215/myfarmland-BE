@@ -86,3 +86,4 @@ bower_components/
 # pnpm-lock.yaml
 src/config/firebase/serviceAccountKey.json
 src/config/firebase/serviceAccountKey.json
+src/config/firebase/serviceAccountKey.json
