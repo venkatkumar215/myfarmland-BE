@@ -3,7 +3,7 @@
 node_modules/
 
 # serviceaccount
-config/serviceAccountKey.json
+config/firebase/serviceAccountKey.json
 
 
 # dist folder
