@@ -2,6 +2,10 @@
 
 node_modules/
 
+# serviceaccount
+config/serviceAccountKey.json
+
+
 # dist folder
 
 dist/

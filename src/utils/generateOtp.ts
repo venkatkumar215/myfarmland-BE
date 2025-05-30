@@ -1,13 +1,11 @@
-export function generateOtp(
-  length: number = 6,
-  number: string = "0123456789"
-): string {
-  if (length < 1 || length > 10) {
-    throw new Error("OTP length must be between 1 and 10");
-  }
-  let otp = "";
-  for (let i = 0; i < length; i++) {
-    otp += number[Math.floor(Math.random() * number.length)];
-  }
-  return otp;
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
+import { PhoneAuthProvider, signInWithCredential } from "firebase/auth";
+
+export async function generateOtp(
+  number: string = "7092027870",
+  countryCode: string = "+91"
+): Promise<FirebaseAuthTypes.ConfirmationResult> {
+  const formattedPhone = `${countryCode}${number.trim()}`;
+  const otpConfirmation = await auth().signInWithPhoneNumber(formattedPhone);
+  return otpConfirmation;
 }

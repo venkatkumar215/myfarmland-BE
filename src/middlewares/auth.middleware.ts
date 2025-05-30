@@ -1,24 +1,31 @@
-// import { Request, Response, NextFunction } from "express";
-// import jwt from "jsonwebtoken";
-// import { UserType } from "../types/user";
+// authMiddleware.ts
+import { Request, Response, NextFunction } from "express";
+import admin from "../config/firebase/firebase";
+import { ERRORS } from "../config/constants/error";
 
-// export const authenticateJWT = (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   const token = req.headers.authorization?.split(" ")[1];
-//   if (!token) return res.status(401).json({ message: "Token missing" });
+export interface AuthRequest extends Request {
+  user?: admin.auth.DecodedIdToken;
+}
 
-//   try {
-//     const decoded = jwt.verify(
-//       token,
-//       process.env.JWT_SECRET as string
-//     ) as UserType;
-//     req.user = decoded;
-//     next();
-//   } catch (err) {
-//     res.status(403).json({ message: "Invalid token" });
-//   }
-// };
-// //
+export const verifyFirebaseToken = async (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return next(ERRORS.UNAUTHOZIRED_TOKEN);
+  }
+
+  const idToken = authHeader.split("Bearer ")[1];
+
+  try {
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    req.user = decodedToken; // Attach decoded token (user info) to request object
+    next();
+  } catch (error) {
+    console.error("Error verifying Firebase ID token:", error);
+    return next(ERRORS.INVALID_TOKEN);
+  }
+};
